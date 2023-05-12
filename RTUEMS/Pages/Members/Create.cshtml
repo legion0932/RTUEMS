@@ -1,0 +1,111 @@
+﻿@page
+@model RTUEMS.Pages.Members.CreateModel
+@using RTUEMS.Models;
+@using Microsoft.EntityFrameworkCore;
+@using RTUEMS.Data
+
+@{
+    ViewData["Title"] = "Create";
+    string EventName = Request.Query["EventName"];
+}
+
+
+<div class="row">
+    <div class="d-grid gap-3 col-9 mx-auto bg-light rounded shadow-lg">
+        <p></p>
+
+        <h1 class="Display-2 text-center">
+            <span class="text-center rounded-pill badge bg-warning text-uppercase text-primary text-opacity-75 shadow-lg">
+                Register for the event
+            </span>
+        </h1>
+
+        <form method="post" class="row g-3">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Member.EventName" class="control-label display-6">Selected Event:</label>
+                <input asp-for="Member.EventName" class="form-control-plaintext text-primary display-6" value="@EventName" readonly />
+                <span asp-validation-for="Member.EventName" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Member.FirstName" class="control-label"></label>
+                <input asp-for="Member.FirstName" class="form-control" />
+                <span asp-validation-for="Member.FirstName" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Member.LastName" class="control-label"></label>
+                <input asp-for="Member.LastName" class="form-control" />
+                <span asp-validation-for="Member.LastName" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Member.BlockSection" class="control-label"></label>
+                <input asp-for="Member.BlockSection" class="form-control" />
+                <span asp-validation-for="Member.BlockSection" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label for="Year">Year</label>
+                <select class="form-control" asp-for="Member.Year">
+                    <option value="">-- Select Year --</option>
+                    @foreach (var year in Enum.GetValues(typeof(YearType)))
+                    {
+                        <option value="@year">@year</option>
+                    }
+                </select>
+                <span asp-validation-for="Member.Year" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Member.StudentNumber" class="control-label"></label>
+                <input asp-for="Member.StudentNumber" class="form-control" />
+                <span asp-validation-for="Member.StudentNumber" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label for="Department">Department</label>
+                <select class="form-control" asp-for="Member.Department">
+                    <option value="">-- Select Department --</option>
+                    @foreach (var department in Enum.GetValues(typeof(DepartmentType)))
+                    {
+                        <option value="@department">@department</option>
+                    }
+                </select>
+                <span asp-validation-for="Member.Department" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Courses">Courses</label>
+                <select class="form-control" asp-for="Member.Courses">
+                    <option value="">-- Select Course --</option>
+                    @foreach (var course in Enum.GetValues(typeof(CourseType)))
+                    {
+                        <option value="@course">@course</option>
+                    }
+                </select>
+                <span asp-validation-for="Member.Courses" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Member.InstitutionalEmail" class="control-label"></label>
+                <input asp-for="Member.InstitutionalEmail" class="form-control" />
+                <span asp-validation-for="Member.InstitutionalEmail" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Member.Phone" class="control-label"></label>
+                <input asp-for="Member.Phone" class="form-control" />
+                <span asp-validation-for="Member.Phone" class="text-danger"></span>
+            </div>
+            <p></p>
+            <div class="form-group">
+                <input type="submit" value="Join" class="btn btn-outline-primary btn-lg" />
+            </div>
+            
+            <p></p>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="/Events/Index" class="btn btn-outline-primary btn-lg">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

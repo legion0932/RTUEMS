@@ -1,0 +1,123 @@
+﻿
+@page
+@model RTUEMS.Pages.Events.IndexModel
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+@{
+    ViewData["Title"] = "Events";
+}
+<style>
+    h1 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 15px;
+        color: #3281C8;
+        font-weight: bold;
+    }
+
+    p {
+        color: #BF9000;
+        font-weight: bold;
+    }
+
+
+
+    .img-container {
+        width: 100%;
+        height: auto;
+    }
+
+        .img-container img {
+            width: 100%;
+            height: auto;
+            align-content: center;
+        }
+
+    .column {
+    }
+</style>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1 class="text-center display-1 ">
+        <span class="text-center rounded-pill badge bg-warning text-uppercase text-primary text-opacity-75 shadow-lg">
+        EVENTS</h1>
+    <p>
+        <a asp-page="Create" class="btn btn-outline-primary btn-lg rounded-pill">Create New</a>
+    </p>
+
+        <div class="row">
+        @foreach (var item in Model.Event)
+        {
+            <div class="col-sm-3 mb-3 mb-sm-0 ">
+                        <div class="card rounded-3 ">
+                    <div class="card-body shadow-lg">
+                        <h5 class="card-title ">@item.EventName</h5>
+                                <p class="fs-6">@item.Venue</p>
+                                <p class="fs-6">@item.VenueTime</p>
+                                <p class="fs-6">@item.MemberCount</p>
+                                            <a asp-page="./JoinedEvent" 
+                                            asp-route-EventName="@(Html.Encode(item.EventName))"
+                                            asp-route-Email="@(Html.Encode(item.Email))"
+                                            asp-route-EventType="@(Html.Encode(item.EventType))"
+                                            asp-route-Name="@(Html.Encode(item.Name))"
+                                            asp-route-Description="@(Html.Encode(item.Description))"
+                                            asp-route-DepartmentHeadName="@(Html.Encode(item.DepartmentHeadName))"
+                                            asp-route-DepartmentName="@(Html.Encode(item.DepartmentName))"
+                                            asp-route-Venue="@(Html.Encode(item.Venue))"
+                                            asp-route-VenueTime="@(Html.Encode(item.VenueTime))"
+                                            asp-route-MemberCount="@(Html.Encode(item.MemberCount))"
+                            
+                           class="btn btn-primary btn-lg d-grid gap-2 rounded-pill">
+                                Details
+                            </a>
+
+                                <p></p>
+                        @if (User.Identity.Name == item.Email)
+                        {
+                            <div class="btn-group container gap-2" role="group">
+
+                                <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-primary btn-lg rounded-pill">Edit</a>
+                                <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-primary btn-lg rounded-pill">Delete</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <a asp-page="/Members/Create" asp-route-EventName="@(Html.Encode(item.EventName))" class="btn btn-outline-primary btn-lg d-grid gap-2 rounded-pill">Join</a>
+
+                        }
+                            </div>
+                        </div>
+                    <p></p>
+                    </div>
+        }
+        </div>
+
+
+}
+else
+{
+        <body>
+
+            <div class="text-center">
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <h1 class="display-5 text-center">WELCOME TO RIZAL TECHNOLOGICAL UNIVERSITY!</h1>
+                    <p class="text-center">RTU EVENT MANAGEMENT SYSTEM</p>
+
+
+                    <p> </p>
+                    <a asp-area="Identity" asp-page="/Account/Login" class="w-50 d-block mx-auto btn btn-lg btn-primary">Sign In</a>
+                    <p> </p>
+                    <a asp-area="Identity" asp-page="/Account/Register" class="w-50 d-block mx-auto btn btn-lg btn-primary">Sign Up</a>
+
+                </div>
+                <div class="col-md-5 col-md-offset-1">
+                    <img class="img-container d-block mx-auto" src="https://cdn.discordapp.com/attachments/1100646575476314228/1103273089703358474/POSTER.png" alt="REMS">
+                </div>
+            </div>
+
+        </body>
+}

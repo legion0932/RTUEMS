@@ -1,0 +1,89 @@
+﻿@page
+@model IndexModel
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Home page";
+}
+<style>
+    h1 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 15px;
+        color: #3281C8;
+        font-weight: bold;
+
+    }
+
+    p {
+        color: #BF9000;
+        font-weight: bold;
+    }
+
+
+
+    .img-container {
+        width: 100%;
+        height: auto;
+    }
+
+        .img-container img {
+            width: 100%;
+            height: auto;
+            align-content: center;
+        }
+
+    .column {
+    }
+</style>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <body>
+        <div class="clearfix" data-bs-theme="blue">
+            <h1 class="display-1 fw-semibold text-center text-uppercase shadow-lg rounded">
+
+                WELCOME To rizal technological university
+             
+        
+    </h1>
+            <h1 class="display-3 fw-semibold text-center text-uppercase width-auto shadow-lg rounded text-primary-emphasis">
+                events management system
+                
+    </h1>
+            <h1 class="display-4 fw-semibold text-center text-uppercase width-auto rounded ">
+                <span class="text-center rounded-pill badge bg-warning text-uppercase text-primary text-opacity-75 shadow-lg">
+                RTUEMS
+            </span>
+            </h1>
+        </div>
+        <div class="btn-group-vertical d-grid col-4 mx-auto btn-group-lg " role="group">
+            <a asp-page="Events/Create" class="btn btn-outline-light btn-lg border-primary fw-bold text-dark">Create Your Own Event</a>
+            <a asp-page="Events/Index" class="btn btn-outline-light btn-lg border-primary fw-bold text-dark">Join an Event</a>
+     </div>
+    </body>
+}
+else
+{
+    <body>
+
+        <div class="text-center">
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <h1 class="display-5 text-center">WELCOME TO RIZAL TECHNOLOGICAL UNIVERSITY!</h1>
+                <p class="text-center">RTU EVENT MANAGEMENT SYSTEM</p>
+
+
+                <p> </p>
+                <a asp-area="Identity" asp-page="/Account/Login" class="w-50 d-block mx-auto btn btn-lg btn-primary">Sign In</a>
+                <p> </p>
+                <a asp-area="Identity" asp-page="/Account/Register" class="w-50 d-block mx-auto btn btn-lg btn-primary">Sign Up</a>
+
+            </div>
+            <div class="col-md-5 col-md-offset-1">
+                <img class="img-container d-block mx-auto" src="https://cdn.discordapp.com/attachments/1100646575476314228/1103273089703358474/POSTER.png" alt="REMS">
+            </div>
+        </div>
+
+    </body>
+}

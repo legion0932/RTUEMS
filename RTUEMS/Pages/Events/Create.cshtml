@@ -1,0 +1,94 @@
+﻿@page
+@using RTUEMS.Models;
+@model RTUEMS.Pages.Events.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+<div class="row">
+    <div class="d-grid gap-3 col-9 mx-auto bg-light shadow-lg rounded-3">
+        
+        <p></p>
+        <h1 class="Display-2 text-center">
+            <span class="text-center rounded-pill badge bg-warning text-uppercase text-primary text-opacity-75 shadow-lg">
+            Organize an event
+            </span>
+            </h1>
+        <form method="post" class="row g-3">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-md-6">
+                <label asp-for="Event.EventName" class="control-label text-pr "></label>
+                <input asp-for="Event.EventName" class="form-control" />
+                <span asp-validation-for="Event.EventName" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Event.EventType" class="control-label "></label>
+                <input asp-for="Event.EventType" class="form-control" />
+                <span asp-validation-for="Event.EventType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.Email" class="control-label "></label>
+                <input asp-for="Event.Email" class="form-control" value="@User.Identity.Name" readonly />
+                <span asp-validation-for="Event.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.Name" class="control-label "></label>
+                <input asp-for="Event.Name" class="form-control" />
+                <span asp-validation-for="Event.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.Description" class="control-label "></label>
+                <textarea asp-for="Event.Description" class="form-control " rows="4"></textarea>
+                <span asp-validation-for="Event.Description" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Event.DepartmentHeadName" class="control-label ">Department Head Name</label>
+                <input asp-for="Event.DepartmentHeadName" class="form-control" />
+                <span asp-validation-for="Event.DepartmentHeadName" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Event.DepartmentName" class="control-label "></label>
+                <input asp-for="Event.DepartmentName" class="form-control" />
+                <span asp-validation-for="Event.DepartmentName" class="text-danger"></span>
+            </div>
+            <div class="col-md-5">
+                <label for="Venue">Venue</label>
+                <select class="form-control" asp-for="Event.Venue">
+                    <option value="">-- Select Venue --</option>
+                    @foreach (var venue in Enum.GetValues(typeof(VenueType)))
+                    {
+                        <option value="@venue">@venue</option>
+                    }
+                </select>
+                <span asp-validation-for="Event.Venue" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="Event.VenueTime" class="control-label"></label>
+                <input asp-for="Event.VenueTime" class="form-control" type="datetime-local" />
+                <span asp-validation-for="Event.VenueTime" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="Event.MemberCount" class="control-label "></label>
+                <input asp-for="Event.MemberCount" class="form-control" />
+                <span asp-validation-for="Event.MemberCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-outline-primary btn-lg" />
+            </div>
+            <p></p>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index" class="btn btn-primary btn-lg">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

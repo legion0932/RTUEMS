@@ -1,0 +1,123 @@
+﻿@page
+@model RTUEMS.Pages.Members.DetailsModel
+@using RTUEMS.Models;
+@using Microsoft.EntityFrameworkCore;
+@using RTUEMS.Data
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+@inject EventContext _context
+
+@{
+    ViewData["Title"] = "Details";
+    string EventN = Request.Query["EventName"];
+    string Email = Request.Query["Email"];
+    string EventType = Request.Query["EventType"];
+    string Name = Request.Query["Name"];
+    string Description = Request.Query["Description"];
+    string DepartmentHeadName = Request.Query["DepartmentHeadName"];
+    string DepartmentName = Request.Query["DepartmentName"];
+    string Venue = Request.Query["Venue"];
+    string Time = Request.Query["VenueTime"];
+    string Count = Request.Query["MemberCount"];
+
+}
+
+<h1 class="text-center display-2">
+    <span class="text-center rounded-pill badge bg-warning text-uppercase text-primary text-opacity-75 shadow-lg">
+        Member Details
+    </span>
+</h1>
+
+<div class="row">
+    <div class="col-md-6 mb-5 mb-sm-0 ">
+        <div class="card rounded-3 ">
+            <div class="card-body shadow-lg" ">
+                <div style="height: 500px;">
+                    <table class="table h-100 ">
+                        <tbody>
+                            <tr>
+                                <td class="fw-bold">@Html.DisplayNameFor(model => model.Member.FirstName)</td>
+                                <td>@Html.DisplayFor(model => model.Member.FirstName)</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">@Html.DisplayNameFor(model => model.Member.LastName)</td>
+                                <td>@Html.DisplayFor(model => model.Member.LastName)</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold"> @Html.DisplayNameFor(model => model.Member.BlockSection)</td>
+                                <td> @Html.DisplayFor(model => model.Member.BlockSection)</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">@Html.DisplayNameFor(model => model.Member.Year)</td>
+                                <td>@Html.DisplayFor(model => model.Member.Year)</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">@Html.DisplayNameFor(model => model.Member.StudentNumber)</td>
+                                <td>@Html.DisplayFor(model => model.Member.StudentNumber)</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">@Html.DisplayNameFor(model => model.Member.Department)</td>
+                                <td>@Html.DisplayFor(model => model.Member.Department)</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">@Html.DisplayNameFor(model => model.Member.Courses)</td>
+                                <td>@Html.DisplayFor(model => model.Member.Courses)</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">@Html.DisplayNameFor(model => model.Member.InstitutionalEmail)</td>
+                                <td>@Html.DisplayFor(model => model.Member.InstitutionalEmail)</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">@Html.DisplayNameFor(model => model.Member.Phone)</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Member.Phone)
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-6 mb-5 mb-sm-0">
+        <div class="card rounded-3" style="width: 100%;">
+            <p></p>
+            <div class="d-grid gap-2 mx-auto">
+                <div id="qrCode"></div>
+                <div id="qrCodeData" data-url="@Html.DisplayFor(model => model.Member.FirstName) @Html.DisplayFor(model => model.Member.LastName) has joined the event @Html.DisplayNameFor(model => model.Member.EventName). The event will be held on @Time at Rizal Technological University in @Venue."></div>
+            </div>
+            <div class="card-body shadow-lg" ">
+                <div style="height: 325px; ">
+                    <div class="h-100 lh-base d-inline-block justify-content-between">
+
+
+                        "@Html.DisplayFor(model => model.Member.FirstName) @Html.DisplayFor(model => model.Member.LastName) has joined the event @Html.DisplayFor(model => model.Member.EventName). The event will be held on @Time at Rizal Technological University in @Venue.""
+                        <p></p>
+                        <h4>Description:</h4>
+                        <p></p>
+                        @Description
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<p></p>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Member?.Id" asp-route-EventName="@Model.Member.EventName" class="btn btn-outline-primary btn-lg rounded-pill">Edit</a> |
+    <a asp-page="/Events/Index" class="btn btn-outline-primary btn-lg rounded-pill">Back to List</a>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript" src="~/lib/qrcode.js"></script>
+    <script type="text/javascript" src="~/js/qr.js"></script>
+}

@@ -1,0 +1,90 @@
+﻿@page
+@model RTUEMS.Pages.Members.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Member[0].EventName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member[0].BlockSection)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member[0].Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member[0].StudentNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member[0].Department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member[0].Courses)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member[0].InstitutionalEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member[0].Phone)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Member) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BlockSection)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courses)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InstitutionalEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
